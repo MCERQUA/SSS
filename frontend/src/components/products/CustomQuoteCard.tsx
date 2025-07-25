@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { CustomQuoteItem } from '@/types/cart'
-import { useCart } from '@/contexts/CartContext'
+import { useCart } from '@/lib/medusa/cart-context'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/Card'
 import { cn } from '@/lib/utils'
@@ -22,7 +22,7 @@ interface CustomQuoteCardProps {
 }
 
 export function CustomQuoteCard({ template }: CustomQuoteCardProps) {
-  const { addItem } = useCart()
+  const { addToCart } = useCart()
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [showCustomForm, setShowCustomForm] = useState(false)
@@ -39,23 +39,18 @@ export function CustomQuoteCard({ template }: CustomQuoteCardProps) {
   const handleAddToCart = async () => {
     setIsAdding(true)
     
-    const cartItem: CustomQuoteItem = {
-      id: `${template.id}-${Date.now()}`, // Unique ID for each custom request
-      type: 'custom_quote',
-      name: template.name,
-      description: template.description,
-      image: template.image,
-      quantity,
-      basePrice: template.basePrice,
-      category: template.category,
-      customizations: {
-        ...customizations,
-        estimatedQuantity: quantity
-      },
-      createdAt: new Date()
+    try {
+      // For now, redirect to contact form with pre-filled info
+      const params = new URLSearchParams({
+        subject: `Custom Quote Request: ${template.name}`,
+        message: `I'd like a quote for: ${template.name}\nQuantity: ${quantity}\nDescription: ${template.description}\nDesign details: ${customizations.designDescription || 'To be discussed'}`
+      })
+      
+      window.location.href = `/contact?${params.toString()}`
+    } catch (error) {
+      console.error('Error processing quote request:', error)
+      alert('Error processing request. Please try again.')
     }
-    
-    addItem(cartItem)
     
     // Brief loading state for user feedback
     setTimeout(() => {

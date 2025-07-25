@@ -1,3 +1,9 @@
+// DEPRECATED: This cart context has been replaced by @/lib/medusa/cart-context.tsx
+// The new cart context integrates with Medusa.js backend for proper e-commerce functionality
+// 
+// This file is kept temporarily to prevent breaking changes but should not be used
+// All components should import from @/lib/medusa/cart-context instead
+
 'use client'
 
 import React, { createContext, useContext, useReducer, useEffect } from 'react'
@@ -227,7 +233,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 export function useCart() {
   const context = useContext(CartContext)
   if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider')
+    throw new Error('DEPRECATED: This CartContext has been replaced. Please import useCart from @/lib/medusa/cart-context instead.')
   }
   return context
 }

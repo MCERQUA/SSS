@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useCart } from '@/contexts/CartContext'
+import { useCart } from '@/lib/medusa/cart-context'
 import { CartDrawer } from './CartDrawer'
 import { cn } from '@/lib/utils'
 
@@ -12,9 +12,9 @@ interface CartIconProps {
 
 export function CartIcon({ className, isScrolled = false }: CartIconProps) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-  const { getTotalItems } = useCart()
+  const { cart } = useCart()
   
-  const totalItems = getTotalItems()
+  const totalItems = cart?.items?.reduce((total: number, item: any) => total + item.quantity, 0) || 0
 
   return (
     <>

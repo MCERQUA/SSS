@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useCart } from '@/contexts/CartContext'
+import { useCart } from '@/lib/medusa/cart-context'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { cn } from '@/lib/utils'
@@ -14,41 +14,15 @@ interface CartDrawerProps {
 export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const { 
     cart, 
-    removeItem, 
-    updateQuantity, 
-    clearCart, 
-    getStandardItems, 
-    getCustomItems,
-    canCheckout 
+    removeFromCart, 
+    updateQuantity,
+    isLoading
   } = useCart()
 
-  const standardItems = getStandardItems()
-  const customItems = getCustomItems()
-
   const handleCheckout = async () => {
-    if (standardItems.length > 0) {
-      // Handle Stripe checkout for standard items
-      try {
-        const response = await fetch('/api/checkout/create-session', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ items: standardItems })
-        })
-        
-        if (response.ok) {
-          const { url } = await response.json()
-          window.location.href = url
-        }
-      } catch (error) {
-        console.error('Checkout error:', error)
-      }
-    }
-
-    if (customItems.length > 0) {
-      // Handle custom quote request
-      // We'll implement this next
-      console.log('Processing custom quote request...', customItems)
-    }
+    // For now, just redirect to contact for quotes
+    // TODO: Implement proper Medusa checkout flow
+    window.location.href = '/contact'
   }
 
   return (
@@ -83,143 +57,70 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
           {/* Cart Items */}
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
-            {cart.items.length === 0 ? (
+            {!cart || cart.items?.length === 0 ? (
               <div className="text-center py-12">
                 <p className="text-gray-600 text-lg">Your cart is empty</p>
                 <p className="text-gray-500 mt-2">Add some amazing products!</p>
               </div>
             ) : (
               <>
-                {/* Standard Products */}
-                {standardItems.length > 0 && (
-                  <div>
-                    <h3 className="font-semibold text-lg mb-3 text-green-600">
-                      Ready to Purchase (${cart.standardTotal.toFixed(2)})
-                    </h3>
-                    {standardItems.map((item) => (
-                      <Card key={item.id} className="p-4 mb-3">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <h4 className="font-medium text-black">{item.name}</h4>
-                            <p className="text-sm text-gray-700 mt-1">{item.description}</p>
-                            {item.selectedSize && (
-                              <p className="text-xs text-gray-600">Size: {item.selectedSize}</p>
-                            )}
-                            {item.selectedColor && (
-                              <p className="text-xs text-gray-600">Color: {item.selectedColor}</p>
-                            )}
-                            <div className="flex items-center mt-2 space-x-2">
-                              <button
-                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded hover:bg-gray-200"
-                              >
-                                −
-                              </button>
-                              <span className="w-8 text-center">{item.quantity}</span>
-                              <button
-                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded hover:bg-gray-200"
-                              >
-                                +
-                              </button>
-                            </div>
-                          </div>
-                          <div className="ml-4 text-right">
-                            <p className="font-semibold">${(item.price * item.quantity).toFixed(2)}</p>
-                            <button
-                              onClick={() => removeItem(item.id)}
-                              className="text-red-500 text-sm hover:text-red-700 mt-1"
-                            >
-                              Remove
-                            </button>
-                          </div>
+                {cart.items?.map((item: any) => (
+                  <Card key={item.id} className="p-4 mb-3">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h4 className="font-medium text-black">
+                          {item.product?.title || item.variant?.title || 'Product'}
+                        </h4>
+                        <p className="text-sm text-gray-700 mt-1">
+                          {item.variant?.title || 'Variant'}
+                        </p>
+                        <div className="flex items-center mt-2 space-x-2">
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                            className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded hover:bg-gray-200"
+                            disabled={isLoading}
+                          >
+                            −
+                          </button>
+                          <span className="w-8 text-center">{item.quantity}</span>
+                          <button
+                            onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                            className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded hover:bg-gray-200"
+                            disabled={isLoading}
+                          >
+                            +
+                          </button>
                         </div>
-                      </Card>
-                    ))}
-                  </div>
-                )}
-
-                {/* Custom Quote Items */}
-                {customItems.length > 0 && (
-                  <div>
-                    <h3 className="font-semibold text-lg mb-3 text-blue-600">
-                      Custom Quote Requests 
-                      {cart.estimatedCustomTotal > 0 && ` (Est. $${cart.estimatedCustomTotal.toFixed(2)})`}
-                    </h3>
-                    {customItems.map((item) => (
-                      <Card key={item.id} className="p-4 mb-3 border-blue-200">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <h4 className="font-medium text-black">{item.name}</h4>
-                            <p className="text-sm text-gray-700 mt-1">{item.description}</p>
-                            <div className="mt-2 text-xs text-gray-600">
-                              <p>Category: {item.category.replace('_', ' ')}</p>
-                              {item.customizations.nfcEnabled && <p>✓ NFC Enabled</p>}
-                              {item.customizations.designDescription && (
-                                <p>Design: {item.customizations.designDescription}</p>
-                              )}
-                            </div>
-                            <div className="flex items-center mt-2 space-x-2">
-                              <button
-                                onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded hover:bg-gray-200"
-                              >
-                                −
-                              </button>
-                              <span className="w-8 text-center">{item.quantity}</span>
-                              <button
-                                onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                className="w-8 h-8 flex items-center justify-center bg-gray-100 rounded hover:bg-gray-200"
-                              >
-                                +
-                              </button>
-                            </div>
-                          </div>
-                          <div className="ml-4 text-right">
-                            {item.basePrice ? (
-                              <p className="font-semibold">
-                                Est. ${(item.basePrice * item.quantity).toFixed(2)}
-                              </p>
-                            ) : (
-                              <p className="text-blue-600 font-medium">Quote Required</p>
-                            )}
-                            <button
-                              onClick={() => removeItem(item.id)}
-                              className="text-red-500 text-sm hover:text-red-700 mt-1"
-                            >
-                              Remove
-                            </button>
-                          </div>
-                        </div>
-                      </Card>
-                    ))}
-                  </div>
-                )}
+                      </div>
+                      <div className="ml-4 text-right">
+                        <p className="font-semibold">
+                          ${((item.variant?.prices?.[0]?.amount || 0) * item.quantity / 100).toFixed(2)}
+                        </p>
+                        <button
+                          onClick={() => removeFromCart(item.id)}
+                          className="text-red-500 text-sm hover:text-red-700 mt-1"
+                          disabled={isLoading}
+                        >
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
               </>
             )}
           </div>
 
           {/* Footer */}
-          {cart.items.length > 0 && (
+          {cart && cart.items?.length > 0 && (
             <div className="border-t border-gray-200 p-6">
               <div className="space-y-3 mb-4">
-                {cart.standardTotal > 0 && (
-                  <div className="flex justify-between">
-                    <span>Immediate Purchase:</span>
-                    <span className="font-semibold">${cart.standardTotal.toFixed(2)}</span>
-                  </div>
-                )}
-                {cart.estimatedCustomTotal > 0 && (
-                  <div className="flex justify-between text-blue-600">
-                    <span>Est. Custom Items:</span>
-                    <span>${cart.estimatedCustomTotal.toFixed(2)}</span>
-                  </div>
-                )}
-                {customItems.some(item => !item.basePrice) && (
-                  <p className="text-xs text-gray-500">
-                    * Some items require custom quotes
-                  </p>
-                )}
+                <div className="flex justify-between">
+                  <span>Total:</span>
+                  <span className="font-semibold">
+                    ${((cart.total || 0) / 100).toFixed(2)}
+                  </span>
+                </div>
               </div>
 
               <div className="space-y-2">
@@ -228,23 +129,9 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                   size="lg"
                   fullWidth
                   onClick={handleCheckout}
-                  disabled={!canCheckout()}
+                  disabled={isLoading}
                 >
-                  {standardItems.length > 0 && customItems.length > 0
-                    ? 'Purchase + Request Quotes'
-                    : standardItems.length > 0
-                    ? 'Checkout Now'
-                    : 'Request Quotes'
-                  }
-                </Button>
-                
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  fullWidth
-                  onClick={clearCart}
-                >
-                  Clear Cart
+                  Request Quote
                 </Button>
               </div>
             </div>

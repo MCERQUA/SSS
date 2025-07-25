@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from 'react'
 import Image from 'next/image'
 import { StandardProduct, SizeVariant } from '@/types/cart'
-import { useCart } from '@/contexts/CartContext'
+import { useCart } from '@/lib/medusa/cart-context'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/Card'
 import { cn } from '@/lib/utils'
@@ -13,7 +13,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const { addItem } = useCart()
+  const { addToCart } = useCart()
   
   // Handle both string[] and SizeVariant[] for sizes
   const sizeVariants = useMemo(() => {
@@ -48,18 +48,16 @@ export function ProductCard({ product }: ProductCardProps) {
   const handleAddToCart = async () => {
     setIsAdding(true)
     
-    const cartItem: StandardProduct = {
-      ...product,
-      price: currentPrice,
-      stripeProductId: currentStripeIds.productId,
-      stripePriceId: currentStripeIds.priceId,
-      quantity,
-      selectedSize: product.sizes ? selectedSize : undefined,
-      selectedColor: product.colors ? selectedColor : undefined,
-      createdAt: new Date()
+    try {
+      // For now, just show alert - TODO: implement proper Medusa product integration
+      alert(`Added ${product.name} to cart! (Feature coming soon - please contact us for orders)`)
+      
+      // Optionally try to add to Medusa cart if we have variant ID
+      // await addToCart(variantId, quantity)
+    } catch (error) {
+      console.error('Error adding to cart:', error)
+      alert('Error adding to cart. Please try again.')
     }
-    
-    addItem(cartItem)
     
     // Brief loading state for user feedback
     setTimeout(() => {
