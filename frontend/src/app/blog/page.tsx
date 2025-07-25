@@ -9,9 +9,9 @@ export default async function BlogPage() {
   return (
     <>
       <Header />
-      <main>
+      <main className="min-h-screen bg-gray-50">
         <HeroSection variant="blog" />
-        <div className="container mx-auto px-4 py-16">
+        <div className="container mx-auto px-4 py-16 bg-white rounded-t-3xl -mt-12 relative z-10 shadow-xl">
           <h1 className="text-3xl font-bold mb-8 text-center">Latest Posts</h1>
       
       {posts.length === 0 ? (
