@@ -56,7 +56,7 @@ export function Header() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         isScrolled 
-          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200" 
+          ? "bg-black/95 backdrop-blur-md shadow-lg border-b border-red-600" 
           : "bg-transparent"
       )}
     >
@@ -70,17 +70,14 @@ export function Header() {
           >
             <div className="block">
               <div style={{
-                '--after-shadow': isScrolled ? '-2px 0 #dc2626' : '-2px 0 #ef4444',
-                '--before-shadow': isScrolled ? '2px 0 #7f1d1d' : '2px 0 #dc2626'
+                '--after-shadow': '-2px 0 #ef4444',
+                '--before-shadow': '2px 0 #dc2626'
               } as React.CSSProperties}>
                 <GlitchText 
                   speed={1.2}
                   enableShadows={true}
                   enableOnHover={false}
-                  className={cn(
-                    "!text-lg !font-bold transition-colors !m-0",
-                    isScrolled ? "!text-black" : "!text-white"
-                  )}
+                  className="!text-lg !font-bold !text-white !m-0"
                 >
                   Sweat Shop Swag
                 </GlitchText>
@@ -97,12 +94,8 @@ export function Header() {
                 className={cn(
                   "relative px-3 py-2 text-sm font-medium transition-all duration-300 group",
                   pathname === item.href
-                    ? isScrolled 
-                      ? "text-red-600" 
-                      : "text-white"
-                    : isScrolled 
-                      ? "text-gray-700 hover:text-red-600" 
-                      : "text-white hover:text-red-600"
+                    ? "text-red-400"
+                    : "text-white hover:text-red-400"
                 )}
               >
                 {item.label}
@@ -110,8 +103,8 @@ export function Header() {
                   className={cn(
                     "absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full",
                     pathname === item.href
-                      ? isScrolled ? "bg-red-600 w-full" : "bg-white w-full"
-                      : isScrolled ? "bg-red-600" : "bg-red-600"
+                      ? "bg-red-400 w-full"
+                      : "bg-red-400"
                   )}
                 />
               </Link>
@@ -134,33 +127,25 @@ export function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={cn(
-                "lg:hidden p-2 rounded-lg transition-colors",
-                isScrolled 
-                  ? "text-gray-700 hover:bg-gray-100" 
-                  : "text-white hover:bg-white/10"
-              )}
+              className="lg:hidden p-2 rounded-lg transition-colors text-white hover:bg-white/10"
               aria-label="Toggle mobile menu"
             >
               <div className="w-6 h-6 flex flex-col justify-center items-center">
                 <span 
                   className={cn(
-                    "w-5 h-0.5 transition-all duration-300",
-                    isScrolled ? "bg-gray-700" : "bg-white",
+                    "w-5 h-0.5 transition-all duration-300 bg-white",
                     isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
                   )} 
                 />
                 <span 
                   className={cn(
-                    "w-5 h-0.5 my-1 transition-all duration-300",
-                    isScrolled ? "bg-gray-700" : "bg-white",
+                    "w-5 h-0.5 my-1 transition-all duration-300 bg-white",
                     isMobileMenuOpen ? "opacity-0" : ""
                   )} 
                 />
                 <span 
                   className={cn(
-                    "w-5 h-0.5 transition-all duration-300",
-                    isScrolled ? "bg-gray-700" : "bg-white",
+                    "w-5 h-0.5 transition-all duration-300 bg-white",
                     isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
                   )} 
                 />
@@ -176,7 +161,7 @@ export function Header() {
             isMobileMenuOpen ? "max-h-80 pb-6" : "max-h-0"
           )}
         >
-          <nav className="flex flex-col space-y-4 pt-4 border-t border-gray-200">
+          <nav className="flex flex-col space-y-4 pt-4 border-t border-red-600">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -185,7 +170,7 @@ export function Header() {
                   "px-4 py-3 text-base font-medium rounded-lg transition-colors",
                   pathname === item.href
                     ? "bg-red-600 text-white"
-                    : "text-gray-700 hover:bg-gray-100"
+                    : "text-white hover:bg-white/10"
                 )}
               >
                 {item.label}
