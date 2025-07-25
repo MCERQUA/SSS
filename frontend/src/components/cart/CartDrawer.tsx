@@ -85,8 +85,8 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
             {cart.items.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-gray-500 text-lg">Your cart is empty</p>
-                <p className="text-gray-400 mt-2">Add some amazing products!</p>
+                <p className="text-gray-600 text-lg">Your cart is empty</p>
+                <p className="text-gray-500 mt-2">Add some amazing products!</p>
               </div>
             ) : (
               <>
@@ -100,13 +100,13 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       <Card key={item.id} className="p-4 mb-3">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <h4 className="font-medium">{item.name}</h4>
-                            <p className="text-sm text-gray-600 mt-1">{item.description}</p>
+                            <h4 className="font-medium text-black">{item.name}</h4>
+                            <p className="text-sm text-gray-700 mt-1">{item.description}</p>
                             {item.selectedSize && (
-                              <p className="text-xs text-gray-500">Size: {item.selectedSize}</p>
+                              <p className="text-xs text-gray-600">Size: {item.selectedSize}</p>
                             )}
                             {item.selectedColor && (
-                              <p className="text-xs text-gray-500">Color: {item.selectedColor}</p>
+                              <p className="text-xs text-gray-600">Color: {item.selectedColor}</p>
                             )}
                             <div className="flex items-center mt-2 space-x-2">
                               <button
@@ -150,9 +150,9 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       <Card key={item.id} className="p-4 mb-3 border-blue-200">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <h4 className="font-medium">{item.name}</h4>
-                            <p className="text-sm text-gray-600 mt-1">{item.description}</p>
-                            <div className="mt-2 text-xs text-gray-500">
+                            <h4 className="font-medium text-black">{item.name}</h4>
+                            <p className="text-sm text-gray-700 mt-1">{item.description}</p>
+                            <div className="mt-2 text-xs text-gray-600">
                               <p>Category: {item.category.replace('_', ' ')}</p>
                               {item.customizations.nfcEnabled && <p>✓ NFC Enabled</p>}
                               {item.customizations.designDescription && (

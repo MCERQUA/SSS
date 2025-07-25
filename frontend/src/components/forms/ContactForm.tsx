@@ -155,7 +155,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             </svg>
           </div>
           <h3 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
-          <p className="text-gray-600 mb-6">
+          <p className="text-gray-700 mb-6">
             We&apos;ve received your {variant === 'quote' ? 'quote request' : 'message'} and will get back to you within 24 hours.
           </p>
           <Button 
@@ -174,7 +174,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
       {!minimal && (
         <CardHeader>
           <CardTitle className="text-center">{config.title}</CardTitle>
-          <p className="text-gray-600 text-center">{config.description}</p>
+          <p className="text-gray-700 text-center">{config.description}</p>
         </CardHeader>
       )}
       
@@ -195,7 +195,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             {/* Name Field */}
             {config.fields.includes('name') && (
               <div className="md:col-span-1">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Name *
                 </label>
                 <input
@@ -216,7 +216,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             {/* Email Field */}
             {config.fields.includes('email') && (
               <div className="md:col-span-1">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Email *
                 </label>
                 <input
@@ -237,7 +237,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             {/* Phone Field */}
             {config.fields.includes('phone') && (
               <div className="md:col-span-1">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Phone
                 </label>
                 <input
@@ -254,7 +254,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             {/* Company Field */}
             {config.fields.includes('company') && (
               <div className="md:col-span-1">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Company
                 </label>
                 <input
@@ -271,7 +271,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             {/* Service Type Field (Quote only) */}
             {config.fields.includes('serviceType') && (
               <div className="md:col-span-1">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Service Type *
                 </label>
                 <select
@@ -296,7 +296,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
             {/* Budget Field (Quote only) */}
             {config.fields.includes('budget') && (
               <div className="md:col-span-1">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Budget Range
                 </label>
                 <select

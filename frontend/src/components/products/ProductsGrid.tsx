@@ -52,7 +52,7 @@ export function ProductsGrid() {
         <h1 className="text-4xl font-bold text-black mb-4">
           Products & Services
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-gray-700 max-w-3xl mx-auto">
           Choose from our ready-to-ship standard products or request a custom quote 
           for specialized NFC merchandise and unique design projects.
         </p>
@@ -130,7 +130,7 @@ export function ProductsGrid() {
         <h3 className="text-2xl font-bold text-black mb-4">
           Need Something Unique?
         </h3>
-        <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
+        <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
           Our team specializes in creating custom NFC solutions and unique merchandise 
           that perfectly match your brand vision and business goals.
         </p>

@@ -83,7 +83,7 @@ export function ProductCard({ product }: ProductCardProps) {
 
       <CardHeader className="pb-3">
         <CardTitle className="text-lg line-clamp-2">{product.name}</CardTitle>
-        <p className="text-sm text-gray-600 line-clamp-2">{product.description}</p>
+        <p className="text-sm text-gray-700 line-clamp-2">{product.description}</p>
       </CardHeader>
 
       <CardContent className="space-y-4">
@@ -96,7 +96,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Size Selection */}
         {product.sizes && product.sizes.length > 0 && (
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Size:</label>
+            <label className="text-sm font-medium text-black">Size:</label>
             <div className="flex flex-wrap gap-2">
               {product.sizes.map((size) => (
                 <button
@@ -106,7 +106,7 @@ export function ProductCard({ product }: ProductCardProps) {
                     "px-3 py-1 text-sm rounded-md border transition-colors",
                     selectedSize === size
                       ? "bg-black text-white border-black"
-                      : "bg-white text-gray-700 border-gray-300 hover:border-gray-400"
+                      : "bg-white text-black border-gray-300 hover:border-gray-400"
                   )}
                 >
                   {size}
@@ -119,7 +119,7 @@ export function ProductCard({ product }: ProductCardProps) {
         {/* Color Selection */}
         {product.colors && product.colors.length > 0 && (
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700">Color:</label>
+            <label className="text-sm font-medium text-black">Color:</label>
             <div className="flex flex-wrap gap-2">
               {product.colors.map((color) => (
                 <button
@@ -129,7 +129,7 @@ export function ProductCard({ product }: ProductCardProps) {
                     "px-3 py-1 text-sm rounded-md border transition-colors",
                     selectedColor === color
                       ? "bg-black text-white border-black"
-                      : "bg-white text-gray-700 border-gray-300 hover:border-gray-400"
+                      : "bg-white text-black border-gray-300 hover:border-gray-400"
                   )}
                 >
                   {color}

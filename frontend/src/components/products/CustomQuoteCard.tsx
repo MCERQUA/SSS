@@ -115,7 +115,7 @@ export function CustomQuoteCard({ template }: CustomQuoteCardProps) {
 
       <CardHeader className="pb-3">
         <CardTitle className="text-lg line-clamp-2">{template.name}</CardTitle>
-        <p className="text-sm text-gray-600 line-clamp-2">{template.description}</p>
+        <p className="text-sm text-gray-700 line-clamp-2">{template.description}</p>
       </CardHeader>
 
       <CardContent className="space-y-4">
@@ -132,7 +132,7 @@ export function CustomQuoteCard({ template }: CustomQuoteCardProps) {
 
         {/* Quantity */}
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">Estimated Quantity:</label>
+          <label className="text-sm font-medium text-black">Estimated Quantity:</label>
           <div className="flex items-center space-x-3">
             <button
               onClick={() => {
@@ -175,14 +175,14 @@ export function CustomQuoteCard({ template }: CustomQuoteCardProps) {
                   }))}
                   className="rounded"
                 />
-                <label htmlFor="nfc-enabled" className="text-sm text-gray-700">
+                <label htmlFor="nfc-enabled" className="text-sm text-black">
                   Include NFC Programming
                 </label>
               </div>
             )}
             
             <div>
-              <label className="text-xs text-gray-600">Design Requirements:</label>
+              <label className="text-xs text-gray-700">Design Requirements:</label>
               <textarea
                 value={customizations.designDescription}
                 onChange={(e) => setCustomizations(prev => ({ 
@@ -196,7 +196,7 @@ export function CustomQuoteCard({ template }: CustomQuoteCardProps) {
             </div>
             
             <div>
-              <label className="text-xs text-gray-600">Timeline:</label>
+              <label className="text-xs text-gray-700">Timeline:</label>
               <select
                 value={customizations.urgency}
                 onChange={(e) => setCustomizations(prev => ({ 
