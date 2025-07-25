@@ -1,0 +1,203 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Button } from '@/components/ui/Button';
+import { cn } from '@/lib/utils';
+
+/**
+ * Header Component for Sweat Shop Swag
+ * 
+ * Modern responsive navigation with red/black theme
+ * Features smooth animations, mobile menu, and scroll effects
+ * 
+ * @component
+ * @example
+ * <Header />
+ */
+
+interface NavItem {
+  label: string;
+  href: string;
+  description?: string;
+}
+
+const navItems: NavItem[] = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Contact', href: '/contact' },
+];
+
+export function Header() {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+
+  // Handle scroll effect for header background
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  return (
+    <header 
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        isScrolled 
+          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200" 
+          : "bg-transparent"
+      )}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          
+          {/* Logo */}
+          <Link 
+            href="/" 
+            className="flex items-center space-x-2 group"
+          >
+            <div className="relative">
+              <div className="w-10 h-10 bg-gradient-to-r from-red-600 to-black rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
+                <span className="text-white font-bold text-xl">S</span>
+              </div>
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full opacity-80"></div>
+            </div>
+            <div className="hidden sm:block">
+              <span className={cn(
+                "text-xl font-bold transition-colors",
+                isScrolled ? "text-black" : "text-white"
+              )}>
+                Sweat Shop Swag
+              </span>
+            </div>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "relative px-3 py-2 text-sm font-medium transition-all duration-300 group",
+                  pathname === item.href
+                    ? isScrolled 
+                      ? "text-red-600" 
+                      : "text-yellow-400"
+                    : isScrolled 
+                      ? "text-gray-700 hover:text-red-600" 
+                      : "text-white hover:text-yellow-400"
+                )}
+              >
+                {item.label}
+                <span 
+                  className={cn(
+                    "absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full",
+                    pathname === item.href
+                      ? isScrolled ? "bg-red-600 w-full" : "bg-yellow-400 w-full"
+                      : isScrolled ? "bg-red-600" : "bg-yellow-400"
+                  )}
+                />
+              </Link>
+            ))}
+          </nav>
+
+          {/* CTA Button & Mobile Menu Button */}
+          <div className="flex items-center space-x-4">
+            {/* CTA Button - Desktop */}
+            <div className="hidden lg:block">
+              <Button 
+                variant="primary" 
+                size="sm"
+                className="shadow-lg hover:shadow-xl"
+              >
+                Get Quote
+              </Button>
+            </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={cn(
+                "lg:hidden p-2 rounded-lg transition-colors",
+                isScrolled 
+                  ? "text-gray-700 hover:bg-gray-100" 
+                  : "text-white hover:bg-white/10"
+              )}
+              aria-label="Toggle mobile menu"
+            >
+              <div className="w-6 h-6 flex flex-col justify-center items-center">
+                <span 
+                  className={cn(
+                    "w-5 h-0.5 transition-all duration-300",
+                    isScrolled ? "bg-gray-700" : "bg-white",
+                    isMobileMenuOpen ? "rotate-45 translate-y-1.5" : ""
+                  )} 
+                />
+                <span 
+                  className={cn(
+                    "w-5 h-0.5 my-1 transition-all duration-300",
+                    isScrolled ? "bg-gray-700" : "bg-white",
+                    isMobileMenuOpen ? "opacity-0" : ""
+                  )} 
+                />
+                <span 
+                  className={cn(
+                    "w-5 h-0.5 transition-all duration-300",
+                    isScrolled ? "bg-gray-700" : "bg-white",
+                    isMobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""
+                  )} 
+                />
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        <div 
+          className={cn(
+            "lg:hidden overflow-hidden transition-all duration-300",
+            isMobileMenuOpen ? "max-h-80 pb-6" : "max-h-0"
+          )}
+        >
+          <nav className="flex flex-col space-y-4 pt-4 border-t border-gray-200">
+            {navItems.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "px-4 py-3 text-base font-medium rounded-lg transition-colors",
+                  pathname === item.href
+                    ? "bg-red-600 text-white"
+                    : "text-gray-700 hover:bg-gray-100"
+                )}
+              >
+                {item.label}
+              </Link>
+            ))}
+            <div className="pt-4">
+              <Button 
+                variant="primary" 
+                size="md"
+                fullWidth={true}
+              >
+                Get Quote
+              </Button>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </header>
+  );
+}

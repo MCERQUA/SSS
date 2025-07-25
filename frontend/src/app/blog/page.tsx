@@ -1,0 +1,50 @@
+import { getAllPosts } from "@/lib/blog/utils"
+import Link from "next/link"
+
+export default async function BlogPage() {
+  const posts = await getAllPosts()
+  
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold mb-8">Blog</h1>
+      
+      {posts.length === 0 ? (
+        <div className="text-center py-12">
+          <p className="text-gray-600 text-lg">No blog posts yet.</p>
+          <p className="text-gray-500 mt-2">Check back later for updates.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {posts.map((post: any) => (
+            <Link 
+              key={post.slug} 
+              href={`/blog/${post.slug}`}
+              className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+            >
+              <div className="p-6">
+                <h2 className="text-xl font-semibold mb-2 hover:text-blue-600 transition-colors">
+                  {post.title}
+                </h2>
+                
+                {post.excerpt && (
+                  <p className="text-gray-600 mb-4">
+                    {post.excerpt}
+                  </p>
+                )}
+                
+                <div className="flex items-center justify-between text-sm text-gray-500">
+                  {post.date && (
+                    <span>{new Date(post.date).toLocaleDateString()}</span>
+                  )}
+                  {post.author && (
+                    <span>By {post.author}</span>
+                  )}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}

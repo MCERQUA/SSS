@@ -1,0 +1,51 @@
+{
+  "permissions": {
+    "defaultMode": "bypassPermissions",
+    "allow": [
+      "mcp__slack__slack_post_message"
+    ],
+    "deny": []
+  },
+  "diff_viewing": true,
+  "show_changes_in_ide": true,
+  "enable_background_tasks": true,
+  "background_task_limit": 8,
+  "env": {
+    "PROJECT_TYPE": "ecommerce",
+    "BACKEND_PORT": "9000",
+    "FRONTEND_PORT": "3000"
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "session_start",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '🚀 Echo AI Session Starting - Auto-executing startup sequence...' && echo '/startup' > /tmp/echo_startup_trigger"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -f /tmp/echo_startup_trigger ] && [ \"$CLAUDE_TOOL_NAME\" != \"startup\" ]; then rm /tmp/echo_startup_trigger && echo 'ECHO_STARTUP_REQUESTED'; fi"
+          }
+        ]
+      }
+    ]
+  },
+  "startup_commands": [
+    "/startup"
+  ],
+  "ecommerce_config": {
+    "auto_startup": true,
+    "development_mode": true,
+    "medusa_backend": true,
+    "nextjs_frontend": true
+  }
+}
