@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import GlitchText from '@/components/ui/GlitchText';
+import { CartIcon } from '@/components/cart/CartIcon';
 import { cn } from '@/lib/utils';
 
 /**
@@ -111,7 +112,7 @@ export function Header() {
             ))}
           </nav>
 
-          {/* CTA Button & Mobile Menu Button */}
+          {/* CTA Button & Cart & Mobile Menu Button */}
           <div className="flex items-center space-x-4">
             {/* CTA Button - Desktop */}
             <div className="hidden lg:block">
@@ -123,6 +124,9 @@ export function Header() {
                 Get Quote
               </Button>
             </div>
+
+            {/* Cart Icon */}
+            <CartIcon isScrolled={isScrolled} />
 
             {/* Mobile Menu Button */}
             <button
