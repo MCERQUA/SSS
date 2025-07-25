@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import { Header } from '@/components/layout';
-import { HeroSection } from '@/components/sections';
+import { Header, Footer } from '@/components/layout';
+import { HeroSection, CTASection } from '@/components/sections';
 import { ProductsGrid } from '@/components/products/ProductsGrid';
 
 export const metadata: Metadata = {
@@ -28,7 +28,9 @@ export default function ProductsPage() {
         <div className="container mx-auto px-4 py-16 bg-white rounded-t-3xl -mt-12 relative z-10 shadow-xl">
           <ProductsGrid />
         </div>
+        <CTASection variant="minimal" theme="light" />
       </main>
+      <Footer />
     </>
   );
 }

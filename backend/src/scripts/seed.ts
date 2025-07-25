@@ -90,10 +90,10 @@ export default async function seedHandler(
     })
     
   } catch (error) {
-    logger.error("Error during database seeding:", error)
+    logger.error("Error during database seeding:", error instanceof Error ? error : new Error(String(error)))
     res.status(500).json({
       error: "Failed to seed database",
-      details: error.message
+      details: error instanceof Error ? error.message : "Unknown error"
     })
   }
 }

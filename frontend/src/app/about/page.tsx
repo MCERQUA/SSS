@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import { Header } from '@/components/layout';
-import { HeroSection } from '@/components/sections';
+import { Header, Footer } from '@/components/layout';
+import { HeroSection, CTASection } from '@/components/sections';
 
 export const metadata: Metadata = {
   title: 'About Us - Sweat Shop Swag | NFC Technology & Custom Decals',
@@ -20,7 +20,9 @@ export default function AboutPage() {
       <Header />
       <main>
         <HeroSection variant="about" />
+        <CTASection variant="contact" />
       </main>
+      <Footer />
     </>
   );
 }

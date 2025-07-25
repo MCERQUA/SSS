@@ -2,7 +2,7 @@
 // Export all layout components for clean imports
 
 export { Header } from './header';
+export { Footer } from './footer';
 
 // Will export when created
-// export { Footer } from './Footer';
 // export { Navigation } from './Navigation';

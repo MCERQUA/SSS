@@ -1,5 +1,5 @@
-import { Header } from '@/components/layout';
-import { HeroSection } from '@/components/sections';
+import { Header, Footer } from '@/components/layout';
+import { HeroSection, CTASection } from '@/components/sections';
 
 export default function Home() {
   return (
@@ -7,7 +7,9 @@ export default function Home() {
       <Header />
       <main>
         <HeroSection variant="home" />
+        <CTASection variant="gradient" theme="red-black" />
       </main>
+      <Footer />
     </>
   );
 }
