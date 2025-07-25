@@ -66,7 +66,7 @@ const heroConfigs = {
     primaryCTAHref: "/contact",
     secondaryCTA: "View Gallery",
     secondaryCTAHref: "/about",
-    background: "bg-gradient-to-br from-red-600 via-yellow-500 to-red-700"
+    background: "bg-gradient-to-br from-red-600 via-red-500 to-red-700"
   },
   about: {
     title: "About Sweat Shop Swag",
@@ -134,7 +134,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Floating Orbs */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-yellow-400 rounded-full opacity-10 animate-pulse"></div>
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-red-400 rounded-full opacity-10 animate-pulse"></div>
         <div className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-red-400 rounded-full opacity-10 animate-bounce" style={{ animationDuration: '3s' }}></div>
         <div className="absolute top-1/2 right-1/3 w-32 h-32 bg-white rounded-full opacity-5 animate-ping" style={{ animationDuration: '4s' }}></div>
         
@@ -210,24 +210,24 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 animate-fade-in-up" 
                  style={{ animationDelay: '0.6s' }}>
               <div className="text-center">
-                <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-black font-bold text-xl">📱</span>
+                <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-white font-bold text-xl">📱</span>
                 </div>
                 <h3 className="text-xl font-semibold mb-2">NFC Technology</h3>
                 <p className="text-gray-300">Tap-enabled merchandise for instant customer engagement</p>
               </div>
               
               <div className="text-center">
-                <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-black font-bold text-xl">🎨</span>
+                <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-white font-bold text-xl">🎨</span>
                 </div>
                 <h3 className="text-xl font-semibold mb-2">UV DTF Decals</h3>
                 <p className="text-gray-300">Durable, vibrant decals that withstand any condition</p>
               </div>
               
               <div className="text-center">
-                <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-black font-bold text-xl">⚡</span>
+                <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-white font-bold text-xl">⚡</span>
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Custom Solutions</h3>
                 <p className="text-gray-300">Tailored to fit your brand identity and business needs</p>

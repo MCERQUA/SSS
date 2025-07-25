@@ -67,13 +67,7 @@ export function Header() {
             href="/" 
             className="flex items-center space-x-2 group"
           >
-            <div className="relative">
-              <div className="w-10 h-10 bg-gradient-to-r from-red-600 to-black rounded-lg flex items-center justify-center transform group-hover:rotate-12 transition-transform duration-300">
-                <span className="text-white font-bold text-xl">S</span>
-              </div>
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full opacity-80"></div>
-            </div>
-            <div className="hidden sm:block">
+            <div className="block">
               <span className={cn(
                 "text-xl font-bold transition-colors",
                 isScrolled ? "text-black" : "text-white"
@@ -94,10 +88,10 @@ export function Header() {
                   pathname === item.href
                     ? isScrolled 
                       ? "text-red-600" 
-                      : "text-yellow-400"
+                      : "text-white"
                     : isScrolled 
                       ? "text-gray-700 hover:text-red-600" 
-                      : "text-white hover:text-yellow-400"
+                      : "text-white hover:text-red-600"
                 )}
               >
                 {item.label}
@@ -105,8 +99,8 @@ export function Header() {
                   className={cn(
                     "absolute bottom-0 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full",
                     pathname === item.href
-                      ? isScrolled ? "bg-red-600 w-full" : "bg-yellow-400 w-full"
-                      : isScrolled ? "bg-red-600" : "bg-yellow-400"
+                      ? isScrolled ? "bg-red-600 w-full" : "bg-white w-full"
+                      : isScrolled ? "bg-red-600" : "bg-red-600"
                   )}
                 />
               </Link>

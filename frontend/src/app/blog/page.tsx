@@ -1,12 +1,18 @@
 import { getAllPosts } from "@/lib/blog/utils"
+import { Header } from '@/components/layout';
+import { HeroSection } from '@/components/sections';
 import Link from "next/link"
 
 export default async function BlogPage() {
   const posts = await getAllPosts()
   
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Blog</h1>
+    <>
+      <Header />
+      <main>
+        <HeroSection variant="blog" />
+        <div className="container mx-auto px-4 py-16">
+          <h1 className="text-3xl font-bold mb-8 text-center">Latest Posts</h1>
       
       {posts.length === 0 ? (
         <div className="text-center py-12">
@@ -45,6 +51,8 @@ export default async function BlogPage() {
           ))}
         </div>
       )}
-    </div>
+        </div>
+      </main>
+    </>
   )
 }

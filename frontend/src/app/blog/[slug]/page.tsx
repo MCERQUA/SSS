@@ -1,4 +1,5 @@
 import { getPostBySlug, getAllPosts } from "@/lib/blog/utils"
+import { Header } from '@/components/layout';
 import { MDXRemote } from "next-mdx-remote/rsc"
 import { notFound } from "next/navigation"
 
@@ -26,7 +27,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const typedPost = post as any
   
   return (
-    <div className="container mx-auto px-4 py-8">
+    <>
+      <Header />
+      <main className="pt-20">
+        <div className="container mx-auto px-4 py-8">
       <article className="max-w-3xl mx-auto">
         <header className="mb-8">
           <h1 className="text-4xl font-bold mb-4">{typedPost.title}</h1>
@@ -45,6 +49,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           <MDXRemote source={typedPost.content} />
         </div>
       </article>
-    </div>
+        </div>
+      </main>
+    </>
   )
 }

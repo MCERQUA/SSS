@@ -29,9 +29,9 @@ const buttonVariants = cva(
         secondary: 
           "bg-black text-white border-2 border-black hover:bg-red-600 hover:border-red-600 shadow-lg hover:shadow-xl focus:ring-gray-300",
         
-        // Accent: Yellow accent (sparingly used)
+        // Accent: White accent
         accent: 
-          "bg-yellow-400 text-black font-bold hover:bg-yellow-300 shadow-lg hover:shadow-xl focus:ring-yellow-200",
+          "bg-white text-black font-bold hover:bg-gray-100 shadow-lg hover:shadow-xl focus:ring-gray-200",
         
         // Outline: Transparent with red border
         outline: 

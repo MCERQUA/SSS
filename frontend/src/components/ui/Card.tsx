@@ -36,9 +36,9 @@ const cardVariants = cva(
         dark: 
           "bg-black border-gray-800 shadow-xl hover:shadow-2xl text-white",
         
-        // Accent: Yellow accent card (sparingly used)
+        // Accent: White accent card
         accent: 
-          "bg-gradient-to-br from-yellow-50 to-yellow-100 border-yellow-200 shadow-lg hover:shadow-xl",
+          "bg-gradient-to-br from-gray-50 to-gray-100 border-gray-200 shadow-lg hover:shadow-xl",
         
         // Glass: Glassmorphism effect
         glass: 
