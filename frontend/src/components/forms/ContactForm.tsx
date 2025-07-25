@@ -156,7 +156,7 @@ export const ContactForm: React.FC<ContactFormProps> = ({
           </div>
           <h3 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
           <p className="text-gray-600 mb-6">
-            We've received your {variant === 'quote' ? 'quote request' : 'message'} and will get back to you within 24 hours.
+            We&apos;ve received your {variant === 'quote' ? 'quote request' : 'message'} and will get back to you within 24 hours.
           </p>
           <Button 
             variant="outline" 
