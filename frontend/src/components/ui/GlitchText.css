@@ -21,14 +21,14 @@
 }
 
 .glitch:not(.enable-on-hover)::after {
-  left: 10px;
-  text-shadow: var(--after-shadow, -10px 0 red);
+  left: 1px;
+  text-shadow: var(--after-shadow, -2px 0 red);
   animation: glitch-after var(--after-duration, 3s) infinite linear alternate-reverse;
 }
 
 .glitch:not(.enable-on-hover)::before {
-  left: -10px;
-  text-shadow: var(--before-shadow, 10px 0 cyan);
+  left: -1px;
+  text-shadow: var(--before-shadow, 2px 0 cyan);
   animation: glitch-before var(--before-duration, 2s) infinite linear alternate-reverse;
 }
 

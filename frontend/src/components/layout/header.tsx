@@ -76,7 +76,7 @@ export function Header() {
                 <GlitchText 
                   speed={1.2}
                   enableShadows={true}
-                  enableOnHover={true}
+                  enableOnHover={false}
                   className={cn(
                     "!text-lg !font-bold transition-colors !m-0",
                     isScrolled ? "!text-black" : "!text-white"
