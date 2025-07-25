@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
+import GlitchText from '@/components/ui/GlitchText';
 import { cn } from '@/lib/utils';
 
 /**
@@ -68,12 +69,22 @@ export function Header() {
             className="flex items-center space-x-2 group"
           >
             <div className="block">
-              <span className={cn(
-                "text-xl font-bold transition-colors",
-                isScrolled ? "text-black" : "text-white"
-              )}>
-                Sweat Shop Swag
-              </span>
+              <div style={{
+                '--after-shadow': isScrolled ? '-2px 0 #dc2626' : '-2px 0 #ef4444',
+                '--before-shadow': isScrolled ? '2px 0 #7f1d1d' : '2px 0 #dc2626'
+              } as React.CSSProperties}>
+                <GlitchText 
+                  speed={1.2}
+                  enableShadows={true}
+                  enableOnHover={true}
+                  className={cn(
+                    "!text-lg !font-bold transition-colors !m-0",
+                    isScrolled ? "!text-black" : "!text-white"
+                  )}
+                >
+                  Sweat Shop Swag
+                </GlitchText>
+              </div>
             </div>
           </Link>
 

@@ -1,0 +1,174 @@
+.glitch {
+  color: #fff;
+  font-size: inherit;
+  white-space: nowrap;
+  font-weight: inherit;
+  position: relative;
+  margin: 0;
+  user-select: none;
+  cursor: pointer;
+}
+
+.glitch::after,
+.glitch::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  color: inherit;
+  background-color: transparent;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+}
+
+.glitch:not(.enable-on-hover)::after {
+  left: 10px;
+  text-shadow: var(--after-shadow, -10px 0 red);
+  animation: glitch-after var(--after-duration, 3s) infinite linear alternate-reverse;
+}
+
+.glitch:not(.enable-on-hover)::before {
+  left: -10px;
+  text-shadow: var(--before-shadow, 10px 0 cyan);
+  animation: glitch-before var(--before-duration, 2s) infinite linear alternate-reverse;
+}
+
+.glitch.enable-on-hover:hover::after {
+  left: 10px;
+  text-shadow: var(--after-shadow, -10px 0 red);
+  animation: glitch-after var(--after-duration, 3s) infinite linear alternate-reverse;
+}
+
+.glitch.enable-on-hover:hover::before {
+  left: -10px;
+  text-shadow: var(--before-shadow, 10px 0 cyan);
+  animation: glitch-before var(--before-duration, 2s) infinite linear alternate-reverse;
+}
+
+@keyframes glitch-after {
+  0% {
+    clip-path: inset(15% 0 30% 0);
+  }
+  5% {
+    clip-path: inset(10% 0 1% 0);
+  }
+  10% {
+    clip-path: inset(1% 0 1% 0);
+  }
+  15% {
+    clip-path: inset(10% 0 85% 0);
+  }
+  20% {
+    clip-path: inset(40% 0 43% 0);
+  }
+  30% {
+    clip-path: inset(25% 0 58% 0);
+  }
+  35% {
+    clip-path: inset(54% 0 1% 0);
+  }
+  40% {
+    clip-path: inset(58% 0 1% 0);
+  }
+  45% {
+    clip-path: inset(50% 0 45% 0);
+  }
+  50% {
+    clip-path: inset(5% 0 54% 0);
+  }
+  55% {
+    clip-path: inset(38% 0 21% 0);
+  }
+  60% {
+    clip-path: inset(5% 0 65% 0);
+  }
+  65% {
+    clip-path: inset(5% 0 52% 0);
+  }
+  70% {
+    clip-path: inset(55% 0 1% 0);
+  }
+  75% {
+    clip-path: inset(55% 0 16% 0);
+  }
+  80% {
+    clip-path: inset(46% 0 1% 0);
+  }
+  85% {
+    clip-path: inset(13% 0 85% 0);
+  }
+  90% {
+    clip-path: inset(67% 0 69% 0);
+  }
+  95% {
+    clip-path: inset(10% 0 60% 0);
+  }
+  100% {
+    clip-path: inset(80% 0 15% 0);
+  }
+}
+
+@keyframes glitch-before {
+  0% {
+    clip-path: inset(10% 0 85% 0);
+  }
+  5% {
+    clip-path: inset(25% 0 58% 0);
+  }
+  10% {
+    clip-path: inset(54% 0 1% 0);
+  }
+  15% {
+    clip-path: inset(58% 0 1% 0);
+  }
+  20% {
+    clip-path: inset(50% 0 45% 0);
+  }
+  25% {
+    clip-path: inset(5% 0 54% 0);
+  }
+  30% {
+    clip-path: inset(38% 0 21% 0);
+  }
+  35% {
+    clip-path: inset(5% 0 65% 0);
+  }
+  40% {
+    clip-path: inset(5% 0 52% 0);
+  }
+  45% {
+    clip-path: inset(55% 0 1% 0);
+  }
+  50% {
+    clip-path: inset(55% 0 16% 0);
+  }
+  55% {
+    clip-path: inset(46% 0 1% 0);
+  }
+  60% {
+    clip-path: inset(13% 0 85% 0);
+  }
+  65% {
+    clip-path: inset(67% 0 69% 0);
+  }
+  70% {
+    clip-path: inset(10% 0 60% 0);
+  }
+  75% {
+    clip-path: inset(80% 0 15% 0);
+  }
+  80% {
+    clip-path: inset(15% 0 30% 0);
+  }
+  85% {
+    clip-path: inset(10% 0 1% 0);
+  }
+  90% {
+    clip-path: inset(1% 0 1% 0);
+  }
+  95% {
+    clip-path: inset(40% 0 43% 0);
+  }
+  100% {
+    clip-path: inset(25% 0 58% 0);
+  }
+}
