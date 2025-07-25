@@ -3,6 +3,25 @@ import { StandardProduct } from '@/types/cart'
 export const standardProducts: Omit<StandardProduct, 'quantity' | 'createdAt'>[] = [
   // Standard Apparel
   {
+    id: 'custom-printed-tshirt',
+    type: 'standard',
+    name: 'Custom Printed T-Shirt',
+    description: 'Premium quality custom printed t-shirt. Soft cotton blend with high-quality screen printing. Perfect for promotional use or personal wear.',
+    price: 20.00,
+    stripeProductId: 'prod_Sk9J3SP9G6DX9N', // Small - will be dynamic based on size
+    stripePriceId: 'price_1Rof0vAsB00o6gkbKsJrcSxx',
+    category: 'apparel',
+    image: '/images/products/custom-printed-tshirt.jpg',
+    sizes: [
+      { name: 'S', price: 20.00, stripeProductId: 'prod_Sk9J3SP9G6DX9N', stripePriceId: 'price_1Rof0vAsB00o6gkbKsJrcSxx' },
+      { name: 'M', price: 20.00, stripeProductId: 'prod_Sk9J5GfiIYKUf0', stripePriceId: 'price_1Rof0yAsB00o6gkbUSumMKZJ' },
+      { name: 'L', price: 22.00, stripeProductId: 'prod_Sk9JPQClxwmyjJ', stripePriceId: 'price_1Rof12AsB00o6gkbJYkgKxnY' },
+      { name: 'XL', price: 24.00, stripeProductId: 'prod_Sk9JpTe9VTr1KD', stripePriceId: 'price_1Rof15AsB00o6gkbufqgCq4l' },
+      { name: 'XXL', price: 26.00, stripeProductId: 'prod_Sk9Jkw857p9rDe', stripePriceId: 'price_1Rof18AsB00o6gkbP6FRdXZJ' }
+    ],
+    colors: ['Black', 'White', 'Navy', 'Red']
+  },
+  {
     id: 'basic-tee-black',
     type: 'standard',
     name: 'Classic Black T-Shirt',

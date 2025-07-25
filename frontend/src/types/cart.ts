@@ -7,13 +7,20 @@ export interface BaseCartItem {
   createdAt: Date
 }
 
+export interface SizeVariant {
+  name: string
+  price: number
+  stripeProductId: string
+  stripePriceId: string
+}
+
 export interface StandardProduct extends BaseCartItem {
   type: 'standard'
   price: number
   stripeProductId: string
   stripePriceId: string
   category: 'apparel' | 'decals' | 'accessories'
-  sizes?: string[]
+  sizes?: string[] | SizeVariant[]
   colors?: string[]
   selectedSize?: string
   selectedColor?: string

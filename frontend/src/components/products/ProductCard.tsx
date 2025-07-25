@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import Image from 'next/image'
-import { StandardProduct } from '@/types/cart'
+import { StandardProduct, SizeVariant } from '@/types/cart'
 import { useCart } from '@/contexts/CartContext'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/Card'
@@ -14,16 +14,45 @@ interface ProductCardProps {
 
 export function ProductCard({ product }: ProductCardProps) {
   const { addItem } = useCart()
-  const [selectedSize, setSelectedSize] = useState<string>(product.sizes?.[0] || '')
+  
+  // Handle both string[] and SizeVariant[] for sizes
+  const sizeVariants = useMemo(() => {
+    if (!product.sizes) return []
+    return product.sizes.map(size => 
+      typeof size === 'string' 
+        ? { name: size, price: product.price, stripeProductId: product.stripeProductId, stripePriceId: product.stripePriceId }
+        : size
+    )
+  }, [product.sizes, product.price, product.stripeProductId, product.stripePriceId])
+
+  const [selectedSize, setSelectedSize] = useState<string>(sizeVariants[0]?.name || '')
   const [selectedColor, setSelectedColor] = useState<string>(product.colors?.[0] || '')
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
+
+  // Get current price based on selected size
+  const currentPrice = useMemo(() => {
+    const selectedVariant = sizeVariants.find(size => size.name === selectedSize)
+    return selectedVariant?.price || product.price
+  }, [selectedSize, sizeVariants, product.price])
+
+  // Get current Stripe IDs based on selected size
+  const currentStripeIds = useMemo(() => {
+    const selectedVariant = sizeVariants.find(size => size.name === selectedSize)
+    return {
+      productId: selectedVariant?.stripeProductId || product.stripeProductId,
+      priceId: selectedVariant?.stripePriceId || product.stripePriceId
+    }
+  }, [selectedSize, sizeVariants, product.stripeProductId, product.stripePriceId])
 
   const handleAddToCart = async () => {
     setIsAdding(true)
     
     const cartItem: StandardProduct = {
       ...product,
+      price: currentPrice,
+      stripeProductId: currentStripeIds.productId,
+      stripePriceId: currentStripeIds.priceId,
       quantity,
       selectedSize: product.sizes ? selectedSize : undefined,
       selectedColor: product.colors ? selectedColor : undefined,
@@ -89,27 +118,30 @@ export function ProductCard({ product }: ProductCardProps) {
       <CardContent className="space-y-4">
         {/* Price */}
         <div className="flex items-center justify-between">
-          <span className="text-2xl font-bold text-black">${product.price}</span>
+          <span className="text-2xl font-bold text-black">${currentPrice.toFixed(2)}</span>
           <span className="text-sm text-green-600 font-medium">In Stock</span>
         </div>
 
         {/* Size Selection */}
-        {product.sizes && product.sizes.length > 0 && (
+        {sizeVariants && sizeVariants.length > 0 && (
           <div className="space-y-2">
             <label className="text-sm font-medium text-black">Size:</label>
             <div className="flex flex-wrap gap-2">
-              {product.sizes.map((size) => (
+              {sizeVariants.map((sizeVariant) => (
                 <button
-                  key={size}
-                  onClick={() => setSelectedSize(size)}
+                  key={sizeVariant.name}
+                  onClick={() => setSelectedSize(sizeVariant.name)}
                   className={cn(
-                    "px-3 py-1 text-sm rounded-md border transition-colors",
-                    selectedSize === size
+                    "px-3 py-1 text-sm rounded-md border transition-colors flex flex-col items-center",
+                    selectedSize === sizeVariant.name
                       ? "bg-black text-white border-black"
                       : "bg-white text-black border-gray-300 hover:border-gray-400"
                   )}
                 >
-                  {size}
+                  <span>{sizeVariant.name}</span>
+                  {sizeVariant.price !== product.price && (
+                    <span className="text-xs opacity-75">${sizeVariant.price.toFixed(2)}</span>
+                  )}
                 </button>
               ))}
             </div>
@@ -175,7 +207,7 @@ export function ProductCard({ product }: ProductCardProps) {
               <span>Adding...</span>
             </span>
           ) : (
-            `Add to Cart • $${(product.price * quantity).toFixed(2)}`
+            `Add to Cart • $${(currentPrice * quantity).toFixed(2)}`
           )}
         </Button>
       </CardFooter>
