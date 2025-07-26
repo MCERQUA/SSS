@@ -166,7 +166,7 @@ export function Header() {
         <div 
           className={cn(
             "lg:hidden overflow-hidden transition-all duration-300",
-            isMobileMenuOpen ? "max-h-80 pb-6" : "max-h-0"
+            isMobileMenuOpen ? "max-h-80 pb-6 bg-black/95 backdrop-blur-md" : "max-h-0"
           )}
         >
           <nav className="flex flex-col space-y-4 pt-4 border-t border-red-600">

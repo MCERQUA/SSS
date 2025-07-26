@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "include": [
+    "/admin/*",
+    "/store/*",
+    "/auth/*",
+    "/health"
+  ],
+  "exclude": []
+}

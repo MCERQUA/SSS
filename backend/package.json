@@ -14,6 +14,7 @@
   ],
   "scripts": {
     "build": "medusa build",
+    "build:cf": "npm run build && node build-cf.js",
     "seed": "medusa exec ./src/scripts/seed.ts",
     "start": "medusa start",
     "dev": "medusa develop",
