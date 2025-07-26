@@ -24,7 +24,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   const handleCheckout = async () => {
     // Open quote modal with cart items info
     const cartSummary = cart.items.length > 0 
-      ? `Cart items:\n${cart.items.map(item => `- ${item.name} (Qty: ${item.quantity})`).join('\n')}\n\nTotal: $${cart.total.toFixed(2)}`
+      ? `Cart items:\n${cart.items.map((item: any) => `- ${item.product?.title || 'Product'} (Qty: ${item.quantity})`).join('\n')}\n\nTotal: $${((cart.total || 0) / 100).toFixed(2)}`
       : 'I\'d like to request a quote for my cart items.'
     
     openModal('quote', {

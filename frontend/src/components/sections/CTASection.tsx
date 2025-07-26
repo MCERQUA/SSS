@@ -204,7 +204,7 @@ export const CTASection: React.FC<CTASectionProps> = ({
               }
 
               // Handle external links
-              if (button.external) {
+              if ('external' in button && button.external && button.href) {
                 return (
                   <a
                     key={index}

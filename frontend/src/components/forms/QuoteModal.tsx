@@ -173,7 +173,7 @@ export const QuoteModal: React.FC = () => {
         )}
       >
         {/* Hidden form for Netlify detection */}
-        <form name="sweatshopswag-quote-modal" netlify="true" netlify-honeypot="bot-field" hidden>
+        <form name="sweatshopswag-quote-modal" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
           <input type="text" name="name" />
           <input type="email" name="email" />
           <input type="tel" name="phone" />
@@ -201,7 +201,7 @@ export const QuoteModal: React.FC = () => {
           <div className="pr-10">
             <h2 className="text-2xl font-bold mb-2">Get Your Custom Quote</h2>
             <p className="text-red-100">
-              Tell us about your project and we'll provide a personalized quote for NFC merchandise or UV DTF decals.
+              Tell us about your project and we&apos;ll provide a personalized quote for NFC merchandise or UV DTF decals.
             </p>
           </div>
         </div>
@@ -216,7 +216,7 @@ export const QuoteModal: React.FC = () => {
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">Quote Request Sent!</h3>
             <p className="text-gray-700 mb-6">
-              We've received your quote request and will get back to you within 24 hours with a detailed proposal.
+              We&apos;ve received your quote request and will get back to you within 24 hours with a detailed proposal.
             </p>
             <div className="space-y-3">
               <Button 
