@@ -12,18 +12,18 @@ module.exports = {
       disable: true,
     },
   },
-  modules: {
-    fileService: {
+  modules: [
+    {
       resolve: "@medusajs/file-local",
       options: {
         upload_dir: "uploads",
       },
     },
-    paymentService: {
+    {
       resolve: "@medusajs/payment-stripe", 
       options: {
         api_key: process.env.STRIPE_API_KEY,
       },
     },
-  }
+  ]
 };
