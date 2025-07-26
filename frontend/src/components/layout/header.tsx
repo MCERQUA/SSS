@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/Button';
 import GlitchText from '@/components/ui/GlitchText';
 import { CartIcon } from '@/components/cart/CartIcon';
+import { useModal } from '@/contexts/ModalContext';
 import { cn } from '@/lib/utils';
 
 /**
@@ -37,6 +38,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const pathname = usePathname();
+  const { openModal } = useModal();
 
   // Handle scroll effect for header background
   useEffect(() => {
@@ -121,6 +123,7 @@ export function Header() {
                 variant="primary" 
                 size="sm"
                 className="shadow-lg hover:shadow-xl"
+                onClick={() => openModal('quote')}
               >
                 Get Quote
               </Button>
@@ -186,6 +189,7 @@ export function Header() {
                 variant="primary" 
                 size="md"
                 fullWidth={true}
+                onClick={() => openModal('quote')}
               >
                 Get Quote
               </Button>

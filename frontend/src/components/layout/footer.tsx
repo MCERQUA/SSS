@@ -1,5 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { useModal } from '@/contexts/ModalContext';
 
 interface FooterProps {
   className?: string;
@@ -28,6 +31,7 @@ export function Footer({
   theme = 'dark',
   showSocial = true,
 }: FooterProps) {
+  const { openModal } = useModal();
   const isDark = theme === 'dark';
   const bgClass = isDark ? 'bg-black' : 'bg-gray-100';
   const textClass = isDark ? 'text-white' : 'text-black';
@@ -80,9 +84,12 @@ export function Footer({
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className={`${secondaryTextClass} hover:text-red-600 transition-colors`}>
+                <button 
+                  onClick={() => openModal('quote')}
+                  className={`${secondaryTextClass} hover:text-red-600 transition-colors cursor-pointer`}
+                >
                   Custom Quotes
-                </Link>
+                </button>
               </li>
               <li>
                 <Link href="/services/printing" className={`${secondaryTextClass} hover:text-red-600 transition-colors`}>
@@ -173,12 +180,12 @@ export function Footer({
                 <p className={`${secondaryTextClass} text-sm`}>
                   Ready to transform your business?
                 </p>
-                <Link
-                  href="/contact"
-                  className="inline-block mt-2 bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors font-semibold"
+                <button
+                  onClick={() => openModal('quote')}
+                  className="inline-block mt-2 bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors font-semibold cursor-pointer"
                 >
                   Get Custom Quote
-                </Link>
+                </button>
               </div>
             </div>
           </div>

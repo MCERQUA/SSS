@@ -1,12 +1,16 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui';
+import { useModal } from '@/contexts/ModalContext';
 
 interface CTAButton {
   text: string;
-  href: string;
+  href?: string;
   variant?: 'primary' | 'secondary' | 'accent' | 'outline' | 'ghost';
   external?: boolean;
+  action?: 'quote' | 'contact';
 }
 
 interface CTASectionProps {
@@ -22,7 +26,7 @@ interface CTASectionProps {
 const defaultButtons: CTAButton[] = [
   {
     text: 'Get Custom Quote',
-    href: '/contact',
+    action: 'quote',
     variant: 'primary',
   },
   {
@@ -62,6 +66,8 @@ export const CTASection: React.FC<CTASectionProps> = ({
   theme = 'red-black',
   className = "",
 }) => {
+  const { openModal } = useModal();
+  
   // Set default content based on variant
   const getDefaultContent = () => {
     switch (variant) {
@@ -71,7 +77,7 @@ export const CTASection: React.FC<CTASectionProps> = ({
           subtitle: subtitle || 'Get Started Today',
           description: description || 'Contact us for a custom quote and discover how NFC technology and UV DTF decals can revolutionize your brand presence.',
           buttons: buttons.length > 0 ? buttons : [
-            { text: 'Get Custom Quote', href: '/contact', variant: 'primary' as const },
+            { text: 'Get Custom Quote', action: 'quote', variant: 'primary' as const },
             { text: 'Call Now', href: 'tel:+16476991930', variant: 'outline' as const }
           ]
         };
@@ -181,25 +187,46 @@ export const CTASection: React.FC<CTASectionProps> = ({
           )}
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            {content.buttons.map((button, index) => (
-              button.external ? (
-                <a
-                  key={index}
-                  href={button.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-block"
-                >
+            {content.buttons.map((button, index) => {
+              // Handle modal actions
+              if (button.action === 'quote') {
+                return (
                   <Button 
+                    key={index}
                     variant={button.variant || 'primary'}
                     size="lg"
                     className="min-w-[150px] transform hover:scale-105 transition-all duration-300"
+                    onClick={() => openModal('quote')}
                   >
                     {button.text}
                   </Button>
-                </a>
-              ) : (
-                <Link key={index} href={button.href} className="inline-block">
+                );
+              }
+
+              // Handle external links
+              if (button.external) {
+                return (
+                  <a
+                    key={index}
+                    href={button.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block"
+                  >
+                    <Button 
+                      variant={button.variant || 'primary'}
+                      size="lg"
+                      className="min-w-[150px] transform hover:scale-105 transition-all duration-300"
+                    >
+                      {button.text}
+                    </Button>
+                  </a>
+                );
+              }
+
+              // Handle internal links
+              return (
+                <Link key={index} href={button.href || '#'} className="inline-block">
                   <Button 
                     variant={button.variant || 'primary'}
                     size="lg"
@@ -208,8 +235,8 @@ export const CTASection: React.FC<CTASectionProps> = ({
                     {button.text}
                   </Button>
                 </Link>
-              )
-            ))}
+              );
+            })}
           </div>
           
           {variant === 'contact' && (

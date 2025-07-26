@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import { CustomQuoteItem } from '@/types/cart'
 import { useCart } from '@/lib/medusa/cart-context'
+import { useModal } from '@/contexts/ModalContext'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/Card'
 import { cn } from '@/lib/utils'
@@ -23,6 +24,7 @@ interface CustomQuoteCardProps {
 
 export function CustomQuoteCard({ template }: CustomQuoteCardProps) {
   const { addToCart } = useCart()
+  const { openModal } = useModal()
   const [quantity, setQuantity] = useState(1)
   const [isAdding, setIsAdding] = useState(false)
   const [showCustomForm, setShowCustomForm] = useState(false)
@@ -40,13 +42,33 @@ export function CustomQuoteCard({ template }: CustomQuoteCardProps) {
     setIsAdding(true)
     
     try {
-      // For now, redirect to contact form with pre-filled info
-      const params = new URLSearchParams({
-        subject: `Custom Quote Request: ${template.name}`,
-        message: `I'd like a quote for: ${template.name}\nQuantity: ${quantity}\nDescription: ${template.description}\nDesign details: ${customizations.designDescription || 'To be discussed'}`
+      // Get service type based on category
+      const getServiceType = (category: string) => {
+        switch (category) {
+          case 'nfc_apparel': return 'nfc-apparel'
+          case 'custom_decals': return 'uv-dtf-decals'
+          case 'bulk_order': return 'both'
+          default: return ''
+        }
+      }
+
+      // Build pre-filled message
+      const preFilledMessage = [
+        `I'd like a quote for: ${template.name}`,
+        `Quantity: ${quantity}`,
+        `Description: ${template.description}`,
+        customizations.designDescription ? `Design details: ${customizations.designDescription}` : '',
+        customizations.specialInstructions ? `Special instructions: ${customizations.specialInstructions}` : '',
+        `Timeline: ${customizations.urgency === 'standard' ? 'Standard (2-3 weeks)' : customizations.urgency === 'rush' ? 'Rush (1 week)' : 'Emergency (3-5 days)'}`
+      ].filter(Boolean).join('\n')
+
+      // Open modal with pre-filled data
+      openModal('quote', {
+        serviceType: getServiceType(template.category),
+        productName: template.name,
+        quantity: quantity,
+        message: preFilledMessage
       })
-      
-      window.location.href = `/contact?${params.toString()}`
     } catch (error) {
       console.error('Error processing quote request:', error)
       alert('Error processing request. Please try again.')
@@ -56,7 +78,7 @@ export function CustomQuoteCard({ template }: CustomQuoteCardProps) {
     setTimeout(() => {
       setIsAdding(false)
       setShowCustomForm(false)
-    }, 500)
+    }, 300)
   }
 
   const getCategoryInfo = (category: string) => {

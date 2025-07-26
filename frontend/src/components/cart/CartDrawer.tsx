@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import { useCart } from '@/lib/medusa/cart-context'
+import { useModal } from '@/contexts/ModalContext'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { cn } from '@/lib/utils'
@@ -12,6 +13,7 @@ interface CartDrawerProps {
 }
 
 export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
+  const { openModal } = useModal()
   const { 
     cart, 
     removeFromCart, 
@@ -20,9 +22,17 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
   } = useCart()
 
   const handleCheckout = async () => {
-    // For now, just redirect to contact for quotes
-    // TODO: Implement proper Medusa checkout flow
-    window.location.href = '/contact'
+    // Open quote modal with cart items info
+    const cartSummary = cart.items.length > 0 
+      ? `Cart items:\n${cart.items.map(item => `- ${item.name} (Qty: ${item.quantity})`).join('\n')}\n\nTotal: $${cart.total.toFixed(2)}`
+      : 'I\'d like to request a quote for my cart items.'
+    
+    openModal('quote', {
+      message: cartSummary
+    })
+    
+    // Close cart drawer
+    onClose()
   }
 
   return (

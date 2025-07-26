@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/Button';
+import { useModal } from '@/contexts/ModalContext';
 import { cn } from '@/lib/utils';
 
 /**
@@ -109,6 +110,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   backgroundImage,
   className
 }) => {
+  const { openModal } = useModal();
   const config = heroConfigs[variant];
   
   const heroTitle = title || config.title;
@@ -176,7 +178,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 size="xl"
                 className="shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300"
                 onClick={() => {
-                  if (heroPrimaryCTAHref?.startsWith('#')) {
+                  // Handle quote modal for "Get Quote" buttons
+                  if (heroPrimaryCTA?.toLowerCase().includes('quote')) {
+                    openModal('quote');
+                  } else if (heroPrimaryCTAHref?.startsWith('#')) {
                     document.querySelector(heroPrimaryCTAHref)?.scrollIntoView({ behavior: 'smooth' });
                   } else {
                     window.location.href = heroPrimaryCTAHref || '/contact';

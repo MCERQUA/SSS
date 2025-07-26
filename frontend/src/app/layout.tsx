@@ -3,6 +3,8 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { MedusaProvider } from '@/lib/medusa/medusa-provider'
 import { CartProvider } from '@/lib/medusa/cart-context'
+import { ModalProvider } from '@/contexts/ModalContext'
+import QuoteModal from '@/components/forms/QuoteModal'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -39,7 +41,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <MedusaProvider>
           <CartProvider>
-            {children}
+            <ModalProvider>
+              {children}
+              <QuoteModal />
+            </ModalProvider>
           </CartProvider>
         </MedusaProvider>
       </body>
