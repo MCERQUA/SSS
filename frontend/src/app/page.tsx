@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <>
       <Header />
-      <main className="pt-16 lg:pt-20">
+      <main className="pt-20 lg:pt-20">
         <HeroSection variant="home" />
         <CTASection variant="gradient" theme="red-black" />
       </main>
