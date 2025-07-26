@@ -1,6 +1,4 @@
-import { defineConfig } from "@medusajs/framework/utils";
-
-export default defineConfig({
+module.exports = {
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
     http: {
@@ -28,4 +26,4 @@ export default defineConfig({
       },
     },
   }
-});
+};
